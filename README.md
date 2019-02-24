@@ -1,1 +1,1 @@
-# CurseWork
+# StockMarketSimulator
