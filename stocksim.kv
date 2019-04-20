@@ -1,0 +1,192 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+ScreenManager :
+    transition : FadeTransition()
+    MainScreen :
+    ProfileScreen:
+
+
+<MainScreen> :
+    name : 'main'
+
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'greybackground.jpg'
+
+    RelativeLayout:
+        Button:
+            text: 'My profile'
+            pos_hint: {'right': .205, 'top': .99}
+            size_hint: [.2,.2]
+            on_press:
+                root.manager.current = 'profile'
+                root.manager.transition.direction = 'left'
+        Button:
+            text: 'Exit'
+            pos_hint: {'right': 0.995, 'top': .105}
+            size_hint: [.15,.1]
+            on_press:
+                exit()
+
+        Accordion:
+            orientation: 'horizontal'
+            pos_hint: {'right': .305, 'top': .78}
+            size_hint: [.3,.77]
+            AccordionItem:
+                title: 'Group1'
+                BoxLayout:
+                    orientation: 'vertical'
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+
+            AccordionItem:
+                title: 'Group2'
+                BoxLayout:
+                    orientation: 'vertical'
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+
+            AccordionItem:
+                title: 'Group2'
+                BoxLayout:
+                    orientation: 'vertical'
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+                    Button:
+                        text: "stock1"
+
+    ToggleButton:
+        pos_hint: {'right': .41, 'top': .78}
+        size_hint: [.1,.05]
+        text: 'Hour'
+        group: 'time'
+        state: 'down'
+
+    ToggleButton:
+        pos_hint: {'right': .51, 'top': .78}
+        size_hint: [.1,.05]
+        text: 'Day'
+        group: 'time'
+
+    ToggleButton:
+        pos_hint: {'right': .61, 'top': .78}
+        size_hint: [.1,.05]
+        text: 'Month'
+        group: 'time'
+
+    ToggleButton:
+        pos_hint: {'right': .79, 'top': .78}
+        size_hint: [.1,.05]
+        text: 'Graph1'
+        group: 'graph_type'
+        state: 'down'
+
+    ToggleButton:
+        pos_hint: {'right': .89, 'top': .78}
+        size_hint: [.1,.05]
+        text: 'Graph2'
+        group: 'graph_type'
+
+    ToggleButton:
+        pos_hint: {'right': .99, 'top': .78}
+        size_hint: [.1,.05]
+        text: 'Graph3'
+        group: 'graph_type'
+
+    TextInput:
+        pos_hint: {'right': .51, 'top': .835}
+        size_hint: [.2,.05]
+        text: 'Company'
+        multiline: False
+
+
+<ProfileScreen> :
+    name : 'profile'
+
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'greybackground.jpg'
+
+    RelativeLayout:
+        Button:
+            text: 'Main'
+            pos_hint: {'right': .055, 'top': .99}
+            size_hint: [.05,.98]
+            on_press:
+                root.manager.current = 'main'
+                root.manager.transition.direction = 'right'
+
+        Button:
+            text: 'Exit'
+            pos_hint: {'right': 0.995, 'top': .105}
+            size_hint: [.15,.1]
+            on_press:
+                exit()
+
+        Label:
+            pos_hint: {'right': .65,'top': 1.4}
+            text: 'Balance'
+            bold: True
+            underline: True
+        Label:
+            pos_hint: {'right': 1,'top': 1}
+            text: 'Balance'
+            bold: True
+            underline: True
+
