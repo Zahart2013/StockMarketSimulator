@@ -1,10 +1,5 @@
 #:import FadeTransition kivy.uix.screenmanager.FadeTransition
 
-ScreenManager :
-    transition : FadeTransition()
-    MainScreen :
-    ProfileScreen:
-
 
 <MainScreen> :
     name : 'main'
@@ -146,12 +141,6 @@ ScreenManager :
         size_hint: [.1,.05]
         text: 'Graph3'
         group: 'graph_type'
-
-    TextInput:
-        pos_hint: {'right': .51, 'top': .835}
-        size_hint: [.2,.05]
-        text: 'Company'
-        multiline: False
 
 
 <ProfileScreen> :

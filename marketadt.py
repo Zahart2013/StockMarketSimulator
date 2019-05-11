@@ -8,7 +8,7 @@ class MarketADT:
     def get_basic(self):
         pass
 
-    def add_ais(self):
+    def add_ais(self, ais):
         pass
 
     def calculate(self):
