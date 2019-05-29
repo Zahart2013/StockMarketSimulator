@@ -40,14 +40,14 @@
 
         Button:
             text: "Sell"
-            pos_hint: {'right': .95, 'top': .34}
+            pos_hint: {'right': .95, 'top': .32}
             size_hint: [.15,.06]
             on_press:
                 app.user.sell(app.current_company, float(root.ids.price_input.text), int(root.ids.amount.text))
 
         Button:
             text: "Update"
-            pos_hint: {'right': .95, 'top': .22}
+            pos_hint: {'right': .95, 'top': .24}
             size_hint: [.15,.06]
             on_press:
                 root.ids.current_price.price = str(app.market.basic[app.current_company][-1])
@@ -118,68 +118,254 @@
 
                     Button:
                         text: "INTC"
+                        on_press:
+                            root.ids.current_company.company = "INTC"
+                            root.ids.current_price.price = str(app.market.basic["INTC"][-1])
+                            app.current_company = "INTC"
+                            app.generate_graph("INTC")
+                            root.ids.graph.reload()
+
                     Button:
                         text: "MSFT"
+                        on_press:
+                            root.ids.current_company.company = "MSFT"
+                            root.ids.current_price.price = str(app.market.basic["MSFT"][-1])
+                            app.current_company = "MSFT"
+                            app.generate_graph("MSFT")
+                            root.ids.graph.reload()
+
                     Button:
                         text: "CSCO"
+                        on_press:
+                            root.ids.current_company.company = "CSCO"
+                            root.ids.current_price.price = str(app.market.basic["CSCO"][-1])
+                            app.current_company = "CSCO"
+                            app.generate_graph("CSCO")
+                            root.ids.graph.reload()
+
                     Button:
                         text: "GPRO"
+                        on_press:
+                            root.ids.current_company.company = "GPRO"
+                            root.ids.current_price.price = str(app.market.basic["GPRO"][-1])
+                            app.current_company = "GPRO"
+                            app.generate_graph("GPRO")
+                            root.ids.graph.reload()
+
                     Button:
                         text: "NVDA"
+                        on_press:
+                            root.ids.current_company.company = "NVDA"
+                            root.ids.current_price.price = str(app.market.basic["NVDA"][-1])
+                            app.current_company = "NVDA"
+                            app.generate_graph("NVDA")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "FB"
+                        on_press:
+                            root.ids.current_company.company = "FB"
+                            root.ids.current_price.price = str(app.market.basic["FB"][-1])
+                            app.current_company = "FB"
+                            app.generate_graph("FB")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "COKE"
+                        on_press:
+                            root.ids.current_company.company = "COKE"
+                            root.ids.current_price.price = str(app.market.basic["COKE"][-1])
+                            app.current_company = "COKE"
+                            app.generate_graph("COKE")
+                            root.ids.graph.reload()
 
             AccordionItem:
                 title: 'Group2'
                 BoxLayout:
                     orientation: 'vertical'
                     Button:
-                        text: "stock1"
+                        text: "WIX"
+                        on_press:
+                            root.ids.current_company.company = "WIX"
+                            root.ids.current_price.price = str(app.market.basic["WIX"][-1])
+                            app.current_company = "WIX"
+                            app.generate_graph("WIX")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "TSLA"
+                        on_press:
+                            root.ids.current_company.company = "TSLA"
+                            root.ids.current_price.price = str(app.market.basic["TSLA"][-1])
+                            app.current_company = "TSLA"
+                            app.generate_graph("TSLA")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "NTES"
+                        on_press:
+                            root.ids.current_company.company = "NTES"
+                            root.ids.current_price.price = str(app.market.basic["NTES"][-1])
+                            app.current_company = "NTES"
+                            app.generate_graph("NTES")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "MU"
+                        on_press:
+                            root.ids.current_company.company = "MU"
+                            root.ids.current_price.price = str(app.market.basic["MU"][-1])
+                            app.current_company = "MU"
+                            app.generate_graph("MU")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "ROKU"
+                        on_press:
+                            root.ids.current_company.company = "ROKU"
+                            root.ids.current_price.price = str(app.market.basic["ROKU"][-1])
+                            app.current_company = "ROKU"
+                            app.generate_graph("ROKU")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "YAHOY"
+                        on_press:
+                            root.ids.current_company.company = "YAHOY"
+                            root.ids.current_price.price = str(app.market.basic["YAHOY"][-1])
+                            app.current_company = "YAHOY"
+                            app.generate_graph("YAHOY")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "UBSFF"
+                        on_press:
+                            root.ids.current_company.company = "UBSFF"
+                            root.ids.current_price.price = str(app.market.basic["UBSFF"][-1])
+                            app.current_company = "UBSFF"
+                            app.generate_graph("UBSFF")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "NDAQ"
+                        on_press:
+                            root.ids.current_company.company = "NDAQ"
+                            root.ids.current_price.price = str(app.market.basic["NDAQ"][-1])
+                            app.current_company = "NDAQ"
+                            app.generate_graph("NDAQ")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "NICE"
+                        on_press:
+                            root.ids.current_company.company = "NICE"
+                            root.ids.current_price.price = str(app.market.basic["NICE"][-1])
+                            app.current_company = "NICE"
+                            app.generate_graph("NICE")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "WMT"
+                        on_press:
+                            root.ids.current_company.company = "WMT"
+                            root.ids.current_price.price = str(app.market.basic["WMT"][-1])
+                            app.current_company = "WMT"
+                            app.generate_graph("WMT")
+                            root.ids.graph.reload()
 
             AccordionItem:
-                title: 'Group2'
+                title: 'Group3'
                 BoxLayout:
                     orientation: 'vertical'
                     Button:
-                        text: "stock1"
+                        text: "BABA"
+                        on_press:
+                            root.ids.current_company.company = "BABA"
+                            root.ids.current_price.price = str(app.market.basic["BABA"][-1])
+                            app.current_company = "BABA"
+                            app.generate_graph("BABA")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "GOOG"
+                        on_press:
+                            root.ids.current_company.company = "GOOG"
+                            root.ids.current_price.price = str(app.market.basic["GOOG"][-1])
+                            app.current_company = "GOOG"
+                            app.generate_graph("GOOG")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "IBM"
+                        on_press:
+                            root.ids.current_company.company = "IBM"
+                            root.ids.current_price.price = str(app.market.basic["IBM"][-1])
+                            app.current_company = "IBM"
+                            app.generate_graph("IBM")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "QCOM"
+                        on_press:
+                            root.ids.current_company.company = "QCOM"
+                            root.ids.current_price.price = str(app.market.basic["QCOM"][-1])
+                            app.current_company = "QCOM"
+                            app.generate_graph("QCOM")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "CMCSA"
+                        on_press:
+                            root.ids.current_company.company = "CMCSA"
+                            root.ids.current_price.price = str(app.market.basic["CMCSA"][-1])
+                            app.current_company = "CMCSA"
+                            app.generate_graph("CMCSA")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "SPLK"
+                        on_press:
+                            root.ids.current_company.company = "SPLK"
+                            root.ids.current_price.price = str(app.market.basic["SPLK"][-1])
+                            app.current_company = "SPLK"
+                            app.generate_graph("SPLK")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "ADSK"
+                        on_press:
+                            root.ids.current_company.company = "ADSK"
+                            root.ids.current_price.price = str(app.market.basic["ADSK"][-1])
+                            app.current_company = "ADSK"
+                            app.generate_graph("ADSK")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "NFLX"
+                        on_press:
+                            root.ids.current_company.company = "NFLX"
+                            root.ids.current_price.price = str(app.market.basic["NFLX"][-1])
+                            app.current_company = "NFLX"
+                            app.generate_graph("NFLX")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "AVGO"
+                        on_press:
+                            root.ids.current_company.company = "AVGO"
+                            root.ids.current_price.price = str(app.market.basic["AVGO"][-1])
+                            app.current_company = "AVGO"
+                            app.generate_graph("AVGO")
+                            root.ids.graph.reload()
+
                     Button:
-                        text: "stock1"
+                        text: "INTU"
+                        on_press:
+                            root.ids.current_company.company = "INTU"
+                            root.ids.current_price.price = str(app.market.basic["INTU"][-1])
+                            app.current_company = "INTU"
+                            app.generate_graph("INTU")
+                            root.ids.graph.reload()
 
 <ProfileScreen> :
     id: profile
@@ -207,50 +393,286 @@
             on_press:
                 exit()
 
+        Button:
+            text: "Update"
+            pos_hint: {'right': 0.8, 'top': .105}
+            size_hint: [.15,.1]
+            on_press:
+                root.ids.balance.balance = str(app.user.money)
+                root.ids.AAPL.company = 'AAPL'
+                root.ids.AAPL.quantity = str(app.user.stocks["AAPL"])
+                root.ids.AMD.company = 'AMD'
+                root.ids.AMD.quantity = str(app.user.stocks["AMD"])
+                root.ids.AMZN.company = 'AMZN'
+                root.ids.AMZN.quantity = str(app.user.stocks["AMZN"])
+                root.ids.INTC.company = 'INTC'
+                root.ids.INTC.quantity = str(app.user.stocks["INTC"])
+                root.ids.MSFT.company = 'MSFT'
+                root.ids.MSFT.quantity = str(app.user.stocks["MSFT"])
+                root.ids.CSCO.company = 'CSCO'
+                root.ids.CSCO.quantity = str(app.user.stocks["CSCO"])
+                root.ids.GPRO.company = 'GPRO'
+                root.ids.GPRO.quantity = str(app.user.stocks["GPRO"])
+                root.ids.NVDA.company = 'NVDA'
+                root.ids.NVDA.quantity = str(app.user.stocks["NVDA"])
+                root.ids.FB.company = 'FB'
+                root.ids.FB.quantity = str(app.user.stocks["FB"])
+                root.ids.COKE.company = 'COKE'
+                root.ids.COKE.quantity = str(app.user.stocks["COKE"])
+                root.ids.WIX.company = 'WIX'
+                root.ids.WIX.quantity = str(app.user.stocks["WIX"])
+                root.ids.TSLA.company = 'TSLA'
+                root.ids.TSLA.quantity = str(app.user.stocks["TSLA"])
+                root.ids.NTES.company = 'NTES'
+                root.ids.NTES.quantity = str(app.user.stocks["NTES"])
+                root.ids.MU.company = 'MU'
+                root.ids.MU.quantity = str(app.user.stocks["MU"])
+                root.ids.ROKU.company = 'ROKU'
+                root.ids.ROKU.quantity = str(app.user.stocks["ROKU"])
+                root.ids.YAHOY.company = 'YAHOY'
+                root.ids.YAHOY.quantity = str(app.user.stocks["YAHOY"])
+                root.ids.UBSFF.company = 'UBSFF'
+                root.ids.UBSFF.quantity = str(app.user.stocks["UBSFF"])
+                root.ids.NDAQ.company = 'NDAQ'
+                root.ids.NDAQ.quantity =  str(app.user.stocks["NDAQ"])
+                root.ids.NICE.company = 'NICE'
+                root.ids.NICE.quantity = str(app.user.stocks["NICE"])
+                root.ids.WMT.company = 'WMT'
+                root.ids.WMT.quantity = str(app.user.stocks["WMT"])
+                root.ids.BABA.company = 'BABA'
+                root.ids.BABA.quantity = str(app.user.stocks["BABA"])
+                root.ids.GOOG.company = 'GOOG'
+                root.ids.GOOG.quantity = str(app.user.stocks["GOOG"])
+                root.ids.IBM.company = 'IBM'
+                root.ids.IBM.quantity = str(app.user.stocks["IBM"])
+                root.ids.QCOM.company = 'QCOM'
+                root.ids.QCOM.quantity = str(app.user.stocks["QCOM"])
+                root.ids.CMCSA.company = 'CMCSA'
+                root.ids.CMCSA.quantity = str(app.user.stocks["CMCSA"])
+                root.ids.SPLK.company = 'SPLK'
+                root.ids.SPLK.quantity = str(app.user.stocks["SPLK"])
+                root.ids.ADSK.company = 'ADSK'
+                root.ids.ADSK.quantity = str(app.user.stocks["ADSK"])
+                root.ids.NFLX.company = 'NFLX'
+                root.ids.NFLX.quantity = str(app.user.stocks["NFLX"])
+                root.ids.AVGO.company = 'AVGO'
+                root.ids.AVGO.quantity = str(app.user.stocks["AVGO"])
+                root.ids.INTU.company = 'INTU'
+                root.ids.INTU.quantity = str(app.user.stocks["INTU"])
+
+
+
         BalanceLabel:
             id: balance
             bold: True
             underline: True
 
-        Label:
+        CompanyStocks:
             id: AAPL
             pos_hint: {'right': .65,'top': 1.3}
             text: 'AAPL: '+str(app.user.stocks["AAPL"])
             bold: True
             underline: True
 
-        Label:
+        CompanyStocks:
             id: AMD
-            pos_hint: {'right': .65,'top': 1.2}
+            pos_hint: {'right': .65,'top': 1.25}
             text: 'AMD: '+str(app.user.stocks["AMD"])
             bold: True
             underline: True
 
-        Label:
+        CompanyStocks:
             id: AMZN
-            pos_hint: {'right': .65,'top': 1.1}
+            pos_hint: {'right': .65,'top': 1.2}
             text: 'AMZM: '+str(app.user.stocks["AMZN"])
             bold: True
             underline: True
 
-        Label:
+        CompanyStocks:
             id: INTC
-            pos_hint: {'right': .65,'top': 1}
+            pos_hint: {'right': .65,'top': 1.15}
             text: 'INTC: '+str(app.user.stocks["INTC"])
             bold: True
             underline: True
 
-        Label:
+        CompanyStocks:
             id: MSFT
-            pos_hint: {'right': .65,'top': .9}
+            pos_hint: {'right': .65,'top': 1.1}
             text: 'MSFT: '+str(app.user.stocks["MSFT"])
             bold: True
             underline: True
 
-        Button:
-            text: "Update"
-            pos_hint: {'right': .95, 'top': .22}
-            size_hint: [.15,.06]
-            on_press:
-                root.ids.balance.balance = str(app.user.money)
+        CompanyStocks:
+            id: CSCO
+            pos_hint: {'right': .65,'top': 1.05}
+            text: 'CSCO: '+str(app.user.stocks["CSCO"])
+            bold: True
+            underline: True
 
+        CompanyStocks:
+            id: GPRO
+            pos_hint: {'right': .65,'top': 1}
+            text: 'GPRO: '+str(app.user.stocks["GPRO"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: NVDA
+            pos_hint: {'right': .65,'top': .95}
+            text: 'NVDA: '+str(app.user.stocks["NVDA"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: FB
+            pos_hint: {'right': .65,'top': .9}
+            text: 'FB: '+str(app.user.stocks["FB"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: COKE
+            pos_hint: {'right': .65,'top': .85}
+            text: 'COKE: '+str(app.user.stocks["COKE"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: WIX
+            pos_hint: {'right': 1,'top': 1.3}
+            text: 'WIX: '+str(app.user.stocks["WIX"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: TSLA
+            pos_hint: {'right': 1,'top': 1.25}
+            text: 'TSLA: '+str(app.user.stocks["TSLA"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: NTES
+            pos_hint: {'right': 1,'top': 1.2}
+            text: 'NTES: '+str(app.user.stocks["NTES"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: MU
+            pos_hint: {'right': 1,'top': 1.15}
+            text: 'MU: '+str(app.user.stocks["MU"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: ROKU
+            pos_hint: {'right': 1,'top': 1.1}
+            text: 'ROKU: '+str(app.user.stocks["ROKU"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: YAHOY
+            pos_hint: {'right': 1,'top': 1.05}
+            text: 'YAHOY: '+str(app.user.stocks["YAHOY"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: UBSFF
+            pos_hint: {'right': 1,'top': 1}
+            text: 'UBSFF: '+str(app.user.stocks["UBSFF"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: NDAQ
+            pos_hint: {'right': 1,'top': 0.95}
+            text: 'NDAQ: '+str(app.user.stocks["NDAQ"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: NICE
+            pos_hint: {'right': 1,'top': 0.9}
+            text: 'NICE: '+str(app.user.stocks["NICE"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: WMT
+            pos_hint: {'right': 1,'top': 0.85}
+            text: 'WMT: '+str(app.user.stocks["WMT"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: BABA
+            pos_hint: {'right': 1.35,'top': 1.3}
+            text: 'BABA: '+str(app.user.stocks["BABA"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: GOOG
+            pos_hint: {'right': 1.35,'top': 1.25}
+            text: 'GOOG: '+str(app.user.stocks["GOOG"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: IBM
+            pos_hint: {'right': 1.35,'top': 1.2}
+            text: 'IBM: '+str(app.user.stocks["IBM"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: QCOM
+            pos_hint: {'right': 1.35,'top': 1.15}
+            text: 'QCOM: '+str(app.user.stocks["QCOM"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: CMCSA
+            pos_hint: {'right': 1.35,'top': 1.1}
+            text: 'CMCSA: '+str(app.user.stocks["CMCSA"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: SPLK
+            pos_hint: {'right': 1.35,'top': 1.05}
+            text: 'SPLK: '+str(app.user.stocks["SPLK"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: ADSK
+            pos_hint: {'right': 1.35,'top': 1}
+            text: 'ADSK: '+str(app.user.stocks["ADSK"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: NFLX
+            pos_hint: {'right': 1.35,'top': 0.95}
+            text: 'NFLX: '+str(app.user.stocks["NFLX"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: AVGO
+            pos_hint: {'right': 1.35,'top': 0.9}
+            text: 'AVGO: '+str(app.user.stocks["AVGO"])
+            bold: True
+            underline: True
+
+        CompanyStocks:
+            id: INTU
+            pos_hint: {'right': 1.35,'top': 0.85}
+            text: 'INTU: '+str(app.user.stocks["INTU"])
+            bold: True
+            underline: True

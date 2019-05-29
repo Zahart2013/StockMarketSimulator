@@ -1,48 +1,19 @@
-import requests
-from marketadt import MarketADT
-from time import time as t
+from source.marketadt import MarketADT
 
 
 class Market(MarketADT):
-    def __init__(self):
+    def __init__(self, mrkt):
         """
         Creates object which contains information about market
         """
         super(Market, self).__init__()
-        self.companies = ['AAPL', 'AMD', 'AMZN', "INTC", "MSFT", "CSCO", "GPRO", "NVDA"]
-        self.basic = self.get_basic()
-        self.active_offers = {company: [[None, self.basic[company][-1], -2000]] for company in self.companies}
+        self.companies = ['AAPL', 'AMD', 'AMZN', "INTC", "MSFT", "CSCO", "GPRO", "NVDA",
+                          "FB", "COKE", "WIX", "TSLA", "NTES", "MU", "ROKU", "YAHOY",
+                          "UBSFF", "NDAQ", "NICE", "WMT", "BABA", "GOOG", "IBM", 'QCOM',
+                          'CMCSA', 'SPLK', "ADSK", "NFLX", "AVGO", "INTU"]
+        self.basic = mrkt
+        self.active_offers = {company: [[None, self.basic[company][-1], -5000]] for company in self.companies}
         self.ais = []
-
-    def get_basic(self):
-        """
-        Generates basic set of information about companies' prices on market
-        :return: dict - contains prices for last 30 days for each company
-        """
-        basic = dict()
-        for company in self.companies:
-            data = {"function": 'TIME_SERIES_DAILY',
-                    "symbol": company,
-                    "outputsize": 'compact',
-                    "datatype": "json",
-                    "apikey": "PCT8XEO3EICMQ5T2"}
-            prices = []
-            output = requests.get("https://www.alphavantage.co/query", data).json()
-            time1 = t()
-            while "Note" in output:
-                while t()-time1 < 60:
-                    continue
-                output = requests.get("https://www.alphavantage.co/query",
-                                      data).json()
-            count = 0
-            for time in output['Time Series (Daily)']:
-                prices.append(float(output['Time Series (Daily)'][time]['4. close']))
-                count += 1
-                if count == 30:
-                    break
-            prices.reverse()
-            basic[company] = prices
-        return basic
 
     def add_ais(self, ais):
         """
@@ -59,29 +30,30 @@ class Market(MarketADT):
         """
         Calculates all operations with market's data
         """
+        print(self.active_offers)
         for company in self.active_offers:
             operations = self.active_offers[company]
             sellers = [seller for seller in operations if seller[2] < 0]
             buyers = [buyer for buyer in operations if buyer[2] > 0]
             prices = []
-            sellers.sort(key=lambda x: float(x[1]))
             for seller in sellers:
                 for buyer in buyers:
                     if buyer[1] >= float(seller[1]):
                         sell = abs(seller[2])
                         buy = buyer[2]
                         if sell > buy:
-                            quant = sell - buy
+                            quant = buy
                         else:
                             quant = sell
 
-                        prices.append(seller[1])
                         if seller[0] is None:
                             if buyer[0].money >= buyer[1] * buyer[2]:
                                 seller[2] += quant
                                 buyer[0].money -= quant * float(seller[1])
                                 buyer[2] -= quant
                                 buyer[0].stocks[company] += quant
+                                for j in range(int(quant)):
+                                    prices.append(seller[1])
                         else:
                             if buyer[0].money >= buyer[1] * buyer[2]:
                                 seller[0].money += quant * float(seller[1])
@@ -90,6 +62,8 @@ class Market(MarketADT):
                                 buyer[0].money -= quant * float(seller[1])
                                 buyer[2] -= quant
                                 buyer[0].stocks[company] += quant
+                                for j in range(int(quant)):
+                                    prices.append(seller[1])
 
                     if buyer[2] == 0:
                         buyers.remove(buyer)
@@ -99,6 +73,7 @@ class Market(MarketADT):
 
             del self.basic[company][0]
             if len(prices) > 0:
-                self.basic[company].append(min(prices))
+                self.basic[company].append(round(sum(prices)/len(prices), 2))
             else:
                 self.basic[company].append(self.basic[company][-1])
+            self.active_offers[company] = []

@@ -1,5 +1,5 @@
 import random
-from training_data import generate
+from source.training_data import generate
 
 
 class AI:
@@ -14,6 +14,12 @@ class AI:
             self._weights = weights
 
     def train(self, training_input, training_output, loop):
+        """
+        Training script of AI
+        :param training_input: list - training input sequences
+        :param training_output: list - training output sequences
+        :param loop: int - number of times to repeat training process
+        """
         for i in range(loop):
             for j in range(len(training_input)):
                 prediction = self._feedforward(training_input[j])
@@ -22,6 +28,11 @@ class AI:
         print("Training finished!")
 
     def predict(self, market):
+        """
+        Makes prediction for 10 days
+        :param market: dict - current data about market
+        :return: number - percent of change for price
+        """
         prediction = dict()
         for company in market.keys():
             prediction[company] = self._feedforward(market[company]) * 200 / (float(market[company][-1]) / 100) - 100
@@ -44,72 +55,201 @@ class AI:
             self._weights[index] += 10 ** (-4) * change
 
     def choice(self, market):
+        """
+        Generates choices for AI
+        :param market: dict - current data about market
+        :return: list - data about choice of AI
+        """
         prediction = self.predict(market)
         operation = dict()
         for company in prediction.keys():
             operation[company] = [self, 0, 0]
+
             if prediction[company] >= 20:
-                price = round(float(market[company][-1]) * random.randint(120, 130) * 0.01)
-                if self.money >= price * 100:
-                    operation[company] = [self, price, 100]
-                elif price <= self.money:
-                    operation[company] = [self, price, self.money // price]
-            elif prediction[company] >= 10:
-                price = round(float(market[company][-1])*(random.randint(110, 120)*0.01))
-                if self.money >= price * 75:
-                    operation[company] = [self, price, 75]
-                elif price <= self.money:
-                    operation[company] = [self, price, self.money // price]
-            elif prediction[company] >= 5:
-                price = round(float(market[company][-1])*(random.randint(100, 110)*0.01))
-                if self.money >= price * 50:
+                price = round(market[company][-1]*(random.randint(100, 130)/100), 2)
+                quantity = 100
+                if self.money >= price*quantity:
                     operation[company] = [self, price, 50]
-                elif price <= self.money:
-                    operation[company] = [self, price, self.money // price]
-            elif prediction[company] >= 2.5:
-                price = round(float(market[company][-1])*(random.randint(100, 110)*0.01))
-                if self.money >= price * 25:
+                elif self.money >= price*quantity/2:
                     operation[company] = [self, price, 25]
-                elif price <= self.money:
-                    operation[company] = [self, price, self.money // price]
+                else:
+                    operation[company] = [self, market[company][-1], self.money//market[company][-1]]
+
+            elif prediction[company] >= 15:
+                price = round(market[company][-1] * (random.randint(100, 120) / 100), 2)
+                quantity = random.randint(20, 50)
+                if self.money >= price*quantity:
+                    operation[company] = [self, price, quantity]
+                elif self.money >= price*quantity/2:
+                    operation[company] = [self, round(price/2, 2), quantity]
+                elif self.money >= price*quantity/4:
+                    operation[company] = [self, round(price / 2, 2), quantity//2]
+                else:
+                    operation[company] = [self, market[company][-1], self.money // market[company][-1]]
+
+            elif prediction[company] >= 10:
+                price = round(market[company][-1] * (random.randint(90, 110) / 100), 2)
+                quantity = random.randint(10, 30)
+                if self.money >= price * quantity:
+                    operation[company] = [self, price, quantity]
+                elif self.money >= price * quantity / 2:
+                    operation[company] = [self, round(price / 2, 2), quantity]
+                elif self.money >= price * quantity / 4:
+                    operation[company] = [self, round(price / 2, 2), quantity // 2]
+                else:
+                    operation[company] = [self, market[company][-1], self.money // market[company][-1]]
+
+            elif prediction[company] >= 5:
+                price = round(market[company][-1] * (random.randint(90, 110) / 100), 2)
+                quantity = random.randint(5, 25)
+                if self.money >= price * quantity:
+                    operation[company] = [self, price, quantity]
+                elif self.money >= price * quantity / 2:
+                    operation[company] = [self, round(price / 2, 2), quantity]
+                elif self.money >= price * quantity / 4:
+                    operation[company] = [self, round(price / 2, 2), quantity // 2]
+                else:
+                    operation[company] = [self, market[company][-1], self.money // market[company][-1]]
+
+            elif prediction[company] >= 2.5:
+                if random.randint(1, 2) == 1:
+                    price = round(market[company][-1] * (random.randint(80, 110) / 100), 2)
+                    quantity = random.randint(5, 20)
+                    if self.money >= price * quantity:
+                        operation[company] = [self, price, quantity]
+                    elif self.money >= price * quantity / 2:
+                        operation[company] = [self, round(price / 2, 2), quantity]
+                    elif self.money >= price * quantity / 4:
+                        operation[company] = [self, round(price / 2, 2), quantity // 2]
+                    else:
+                        operation[company] = [self, market[company][-1], self.money // market[company][-1]]
+                else:
+                    price = round(market[company][-1] * (random.randint(100, 130) / 100), 2)
+                    quantity = random.randint(int(-self.stocks[company]//6), int(-self.stocks[company]//10))
+                    operation[company] = [self, price, quantity]
+
             elif prediction[company] >= 1:
-                price = round(float(market[company][-1])*(random.randint(90, 100)*0.01))
-                if self.money >= price * 10:
-                    operation[company] = [self, price, 10]
-                elif price <= self.money:
-                    operation[company] = [self, price, self.money // price]
-            elif prediction[company] >= 0.5:
-                price = round(float(market[company][-1])*random.randint(90, 100)*0.01)
-                if self.money >= price * 5:
-                    operation[company] = [self, price, 5]
-                elif price <= self.money:
-                    operation[company] = [self, price, self.money // price]
-            elif prediction[company] >= 0:
-                operation[company] = [self, round(float(market[company][-1])*random.randint(110, 120)*0.01, 2), -(self.stocks[company] // 6)]
+                if random.randint(1, 2) == 1:
+                    price = round(market[company][-1] * (random.randint(90, 120) / 100), 2)
+                    quantity = random.randint(0, 10)
+                    if self.money >= price * quantity:
+                        operation[company] = [self, price, quantity]
+                    elif self.money >= price * quantity / 2:
+                        operation[company] = [self, round(price / 2, 2), quantity]
+                    elif self.money >= price * quantity / 4:
+                        operation[company] = [self, round(price / 2, 2), quantity // 2]
+                    else:
+                        operation[company] = [self, market[company][-1], self.money // market[company][-1]]
+                else:
+                    price = round(market[company][-1] * (random.randint(80, 110) / 100), 2)
+                    quantity = random.randint(int(-self.stocks[company]//4), int(-self.stocks[company]//10))
+                    operation[company] = [self, price, quantity]
+
             elif prediction[company] >= -0.5:
-                operation[company] = [self, round(float(market[company][-1])*random.randint(100, 110)*0.01, 2), -(self.stocks[company] // 6)]
-            elif prediction[company] >= -1:
-                operation[company] = [self, round(float(market[company][-1])*random.randint(90, 100)*0.01, 2), -(self.stocks[company] // 5)]
-            elif prediction[company] >= -1.5:
-                operation[company] = [self, round(float(market[company][-1])*random.randint(90, 100)*0.01, 2), -(self.stocks[company] // 5)]
+                if random.randint(1, 4) == 1:
+                    price = round(market[company][-1] * (random.randint(70, 110) / 100), 2)
+                    quantity = random.randint(0, 10)
+                    if self.money >= price * quantity:
+                        operation[company] = [self, price, quantity]
+                    elif self.money >= price * quantity / 2:
+                        operation[company] = [self, round(price / 2, 2), quantity]
+                    elif self.money >= price * quantity / 4:
+                        operation[company] = [self, round(price / 2, 2), quantity // 2]
+                    else:
+                        operation[company] = [self, market[company][-1], self.money // market[company][-1]]
+                else:
+                    price = round(market[company][-1] * (random.randint(80, 100) / 100), 2)
+                    quantity = random.randint(int(-self.stocks[company]//4), int(-self.stocks[company]//8))
+                    operation[company] = [self, price, quantity]
+
             elif prediction[company] >= -2.5:
-                operation[company] = [self, round(float(market[company][-1])*random.randint(80, 90)*0.01, 2), -(self.stocks[company] // 4)]
+                if random.randint(1, 4) == 1:
+                    price = round(market[company][-1] * (random.randint(60, 100) / 100), 2)
+                    quantity = random.randint(0, 5)
+                    if self.money >= price * quantity:
+                        operation[company] = [self, price, quantity]
+                    elif self.money >= price * quantity / 2:
+                        operation[company] = [self, round(price / 2, 2), quantity]
+                    elif self.money >= price * quantity / 4:
+                        operation[company] = [self, round(price / 2, 2), quantity // 2]
+                    else:
+                        operation[company] = [self, market[company][-1], self.money // market[company][-1]]
+                else:
+                    price = round(market[company][-1] * (random.randint(80, 100) / 100), 2)
+                    quantity = random.randint(int(-self.stocks[company]//4), int(-self.stocks[company]//6))
+                    operation[company] = [self, price, quantity]
+
             elif prediction[company] >= -5:
-                operation[company] = [self, round(float(market[company][-1])*random.randint(80, 90)*0.01, 2), -(self.stocks[company] // 2)]
+                if random.randint(1, 6) == 1:
+                    price = round(market[company][-1] * (random.randint(60, 80) / 100), 2)
+                    quantity = random.randint(0, 5)
+                    if self.money >= price * quantity:
+                        operation[company] = [self, price, quantity]
+                    elif self.money >= price * quantity / 2:
+                        operation[company] = [self, round(price / 2, 2), quantity]
+                    elif self.money >= price * quantity / 4:
+                        operation[company] = [self, round(price / 2, 2), quantity // 2]
+                    else:
+                        operation[company] = [self, market[company][-1], self.money // market[company][-1]]
+                else:
+                    price = round(market[company][-1] * (random.randint(70, 100) / 100), 2)
+                    quantity = random.randint(int(-self.stocks[company]//2), int(-self.stocks[company]//4))
+                    operation[company] = [self, price, quantity]
+
+            elif prediction[company] >= -10:
+                if random.randint(1, 8) == 1:
+                    price = round(market[company][-1] * (random.randint(60, 80) / 100), 2)
+                    quantity = random.randint(0, 5)
+                    if self.money >= price * quantity:
+                        operation[company] = [self, price, quantity]
+                    elif self.money >= price * quantity / 2:
+                        operation[company] = [self, round(price / 2, 2), quantity]
+                    elif self.money >= price * quantity / 4:
+                        operation[company] = [self, round(price / 2, 2), quantity // 2]
+                    else:
+                        operation[company] = [self, market[company][-1], self.money // market[company][-1]]
+                else:
+                    price = round(market[company][-1] * (random.randint(60, 90) / 100), 2)
+                    quantity = random.randint(int(-self.stocks[company]), int(-self.stocks[company]//3))
+                    operation[company] = [self, price, quantity]
             else:
-                operation[company] = [self, round(float(market[company][-1])*random.randint(70, 80)*0.01, 2), -self.stocks[company]]
+                price = round(market[company][-1] * (random.randint(50, 80) / 100), 2)
+                quantity = random.randint(int(-self.stocks[company]), int(-self.stocks[company] // 2))
+                operation[company] = [self, price, quantity]
+
+            if self.money < 100 and self.stocks[company] > 0:
+                price = round(
+                    market[company][-1] * (random.randint(90, 110) / 100), 2)
+                quantity = random.randint(int(-self.stocks[company]),
+                                          int(-self.stocks[company] // 5))
+                operation[company] = operation[company] = [self, price, quantity]
+
         return operation
 
 
 def generate_ai():
+    """
+    Generates set of AIs
+    :return: list - set of AIs
+    """
     ais = []
     prices, results = generate()
-    for n in range(50):
+    companies = ['AAPL', 'AMD', 'AMZN', "INTC", "MSFT", "CSCO", "GPRO", "NVDA",
+                 "FB", "COKE", "WIX", "TSLA", "NTES", "MU", "ROKU", "YAHOY",
+                 "UBSFF", "NDAQ", "NICE", "WMT", "BABA", "GOOG", "IBM", 'QCOM',
+                 'CMCSA', 'SPLK', "ADSK", "NFLX", "AVGO", "INTU"]
+    for n in range(100):
         indexes = []
-        for m in range(3):
-            indexes.append(random.randint(0, 7))
-        ais.append(AI({'AAPL': [], 'AMD': [], 'AMZN': [], "INTC": [], "MSFT": [], "CSCO": [], "GPRO": [], "NVDA": []}))
-    for each in ais:
-        each.train([prices[indexes[0]], prices[indexes[1]], prices[indexes[2]]], [results[indexes[0]], results[indexes[1]], results[indexes[2]]], 1000 * random.randint(4, 10))
+        for m in range(5):
+            indexes.append(random.randint(0, 29))
+        ai = AI({'AAPL': [], 'AMD': [], 'AMZN': [], "INTC": [], "MSFT": [],
+                 "CSCO": [], "GPRO": [], "NVDA": [], "FB": [], "COKE": [],
+                 "WIX": [], "TSLA": [], "NTES": [], "MU": [], "ROKU": [],
+                 "YAHOY": [], "UBSFF": [], "NDAQ": [], "NICE": [], "WMT": [],
+                 "BABA": [], "GOOG": [], "IBM": [], 'QCOM': [], 'CMCSA': [],
+                 'SPLK': [], "ADSK": [], "NFLX": [], "AVGO": [], "INTU": []})
+        ai.train([prices[indexes[0]], prices[indexes[1]], prices[indexes[2]], prices[indexes[3]], prices[indexes[4]]], [results[indexes[0]], results[indexes[1]], results[indexes[2]], results[indexes[3]], results[indexes[4]]], 1000 * random.randint(6, 10))
+        ais.append(ai)
+    mrkt = {companies[index]: prices[index] for index in range(30)}
     print("Generation finished!")
-    return ais
+    return ais, mrkt

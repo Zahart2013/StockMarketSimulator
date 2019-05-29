@@ -1,6 +1,6 @@
 from unittest import TestCase
-from market import Market
-from network import AI
+from source.market import Market
+from source.network import AI
 
 
 class TestMarket(TestCase):
